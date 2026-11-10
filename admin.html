@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кабинет администратора — тестирование</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Samruk Energy">
+    </div>
+    <div class="admin-title">Кабинет администратора</div>
+    <div class="admin-header-actions">
+      <a class="btn btn-ghost btn-sm" href="index.html">К тесту</a>
+      <button type="button" id="logout-btn" class="btn btn-ghost btn-sm">Выйти</button>
+    </div>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div id="admin-gate" class="card gate" hidden>
+    <h2>Требуется вход</h2>
+    <p>Войдите с паролем администратора, чтобы увидеть результаты.</p>
+    <button type="button" id="gate-login" class="btn">Войти</button>
+  </div>
+
+  <div id="admin-error" class="alert alert-error" role="alert" hidden></div>
+
+  <div id="admin-app" hidden>
+    <section class="topics-strip" aria-label="Темы тестирования">
+      <span>Темы:</span>
+      <b>Корпоративный стандарт по управлению человеческими ресурсами</b>
+      <i aria-hidden="true">·</i>
+      <b>Трудовой кодекс Республики Казахстан</b>
+    </section>
+
+    <section class="stats" id="stats" aria-label="Сводная статистика"></section>
+
+    <section class="card panel">
+      <div class="panel-head">
+        <h2>Результаты</h2>
+        <div class="panel-actions">
+          <button type="button" id="refresh-btn" class="btn btn-secondary btn-sm">Обновить</button>
+          <button type="button" id="export-csv" class="btn btn-secondary btn-sm">Экспорт CSV</button>
+          <button type="button" id="export-xlsx" class="btn btn-sm">Экспорт Excel</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="flt-search" class="input" type="search" placeholder="Поиск по ФИО, email, должности" aria-label="Поиск">
+        <select id="flt-company" class="input" aria-label="Компания"><option value="">Все компании</option></select>
+        <select id="flt-status" class="input" aria-label="Статус">
+          <option value="">Все статусы</option>
+          <option value="Пройден">Пройден</option>
+          <option value="Не пройден">Не пройден</option>
+        </select>
+        <label class="date-f"><span>с</span><input id="flt-from" class="input" type="date" aria-label="Дата с"></label>
+        <label class="date-f"><span>по</span><input id="flt-to" class="input" type="date" aria-label="Дата по"></label>
+        <label class="chk"><input id="flt-archived" type="checkbox"> Показывать сброшенные</label>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results" id="results-table">
+          <thead>
+            <tr>
+              <th data-sort="submittedAt">Дата</th>
+              <th data-sort="fio">ФИО</th>
+              <th data-sort="company">Компания</th>
+              <th data-sort="position">Должность</th>
+              <th data-sort="email">Email</th>
+              <th data-sort="hrScore" class="num" title="Корпоративный стандарт">Корп. ст.</th>
+              <th data-sort="tkScore" class="num" title="Трудовой кодекс РК">ТК РК</th>
+              <th data-sort="totalScore" class="num">Итого</th>
+              <th data-sort="percent" class="num">%</th>
+              <th data-sort="status">Статус</th>
+              <th data-sort="durationSec" class="num">Время</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="empty" class="empty" hidden>Результатов пока нет</div>
+      </div>
+      <div class="table-foot" id="table-foot"></div>
+    </section>
+
+    <section class="card panel">
+      <div class="panel-head"><h2>Самые трудные вопросы</h2><span class="muted" id="hard-note"></span></div>
+      <ol class="hard" id="hard-list"></ol>
+    </section>
+  </div>
+</main>
+
+<div id="modal-root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
